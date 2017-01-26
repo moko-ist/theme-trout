@@ -19,6 +19,9 @@ function fish_prompt
   set -l green (set_color green)
   set -l magenta (set_color magenta)
   set -l normal (set_color normal)
+  set -l path (pwd)
+  set -l count (_file_count)
+  set -l directory_info "($path ($count))"
 
   if [ (rbenv version-name) ]
     set ruby_version (rbenv version-name)
@@ -37,24 +40,24 @@ function fish_prompt
   end
 
   if test $last_status = 0
-    set prompt " $green☆$normal "
+    set prompt " $greenx>$normal "
   else
-    set prompt " $red☆$normal "
+    set prompt " $redx>$normal "
   end
 
-  echo -n -s $ruby_info $git_info $prompt
+  echo -n -s $ruby_info $directory_info $git_info $prompt
 end
 
-function fish_right_prompt
-  set -l blue (set_color blue)
-  set -l normal (set_color normal)
-
-  set -l path (pwd)
-  set -l count (_file_count)
-  set -l directory_info "($path ($count))"
-
-  set -l time (date '+%I:%M')
-  set -l time_info "$blue($time)$normal"
-
-  echo -n -s $directory_info $time_info
-end
+#function fish_right_prompt
+#  set -l blue (set_color blue)
+#  set -l normal (set_color normal)
+#
+#  set -l path (pwd)
+#  set -l count (_file_count)
+#  set -l directory_info "($path ($count))"
+#
+#  set -l time (date '+%I:%M')
+#  set -l time_info "$blue($time)$normal"
+#
+#  echo -n -s $directory_info $time_info
+#end
